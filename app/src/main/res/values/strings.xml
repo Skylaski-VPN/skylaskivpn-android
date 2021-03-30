@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Skylaski VPN</string>
+
+    <string name="device_ready_alert">Device Ready</string>
+    <string name="max_device_alert">Couldn\'t configure device. Perhaps you\'ve already configured all the devices for this account? Otherwise, try loggin out and loggin back in.</string>
+    <string name="permission_label">control WireGuard tunnels</string>
+    <string name="permission_description">control WireGuard tunnels, enabling and disabling tunnels at will, potentially misdirecting Internet traffic</string>
+    <string name="disable_config_export_title">Disable config exporting</string>
+    <string name="disable_config_export_description">Disabling config exporting makes private keys less accessible</string>
+    <string name="title_activity_client">ClientActivity</string>
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+    <string name="hello_world">Hello Square World!</string>
+
+</resources>
