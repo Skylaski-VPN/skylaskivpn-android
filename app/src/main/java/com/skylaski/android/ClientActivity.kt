@@ -127,6 +127,8 @@ class ClientActivity : AppCompatActivity() {
             findViewById<TextView>(R.id.alertText)
                     .setText(R.string.max_device_alert)
         }
+        findViewById<TextView>(R.id.alertText)
+            .setText("Unique ID: "+sharedPreferences.getString("local_uid","Unknown").toString())
     }
 
     private fun getLocations(sharedPreferences: SharedPreferences){
@@ -296,8 +298,9 @@ class ClientActivity : AppCompatActivity() {
         // We should also delete the client off the backend.
         // first detach
 
-        Toast.makeText(applicationContext,"Detaching Client", Toast.LENGTH_SHORT).show()
-        WGMApi.detachClient(mSharedPreferences)
+        // This is now handled by the deleteClient() command
+        //Toast.makeText(applicationContext,"Detaching Client", Toast.LENGTH_SHORT).show()
+        //WGMApi.detachClient(mSharedPreferences)
 
         Toast.makeText(applicationContext,"Deleting Client", Toast.LENGTH_SHORT).show()
         WGMApi.deleteClient(mSharedPreferences)
