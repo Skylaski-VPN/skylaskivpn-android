@@ -8,8 +8,6 @@ import android.view.View
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.core.content.PermissionChecker.PERMISSION_DENIED
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.google.android.material.switchmaterial.SwitchMaterial
@@ -20,10 +18,6 @@ import com.skylaski.android.wgm.WGMApi
 import com.skylaski.android.wgm.wireguard.MyTunnel
 import com.skylaski.android.wgm.wireguard.TunnelManager
 import com.wireguard.android.backend.GoBackend
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -82,7 +76,7 @@ class ClientActivity : AppCompatActivity() {
             token = deepLinkIntent.getStringExtra("TOKEN").toString()
         }
         else {
-            val pattern = kotlin.text.Regex("^skylaski:\\/\\/wgm0\\.skylaski\\.com\\/skylaskivpnapp\\?token=(.*)$")
+            val pattern = kotlin.text.Regex("^skylaski:\\/\\/www0\\.skylaski\\.com\\/skylaskivpnapp\\?token=(.*)$")
             val matchResult = pattern.find(deepLinkIntent.dataString.toString())
             token = matchResult!!.groupValues[1]
         }

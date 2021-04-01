@@ -4,7 +4,6 @@ import android.content.SharedPreferences
 import android.util.Log
 import com.skylaski.android.wgm.wireguard.WGKeys
 import org.json.JSONObject
-import kotlin.time.measureTime
 
 public const val USER_API_ENDPOINT = "https://wgm0.skylaski.com/api/0.1/user/index.php"
 public const val CLIENT_API_ENDPOINT = "https://wgm0.skylaski.com/api/0.1/client/index.php"

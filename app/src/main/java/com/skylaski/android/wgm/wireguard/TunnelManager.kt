@@ -6,7 +6,6 @@ import android.util.Log
 import android.widget.Toast
 import com.wireguard.android.backend.GoBackend
 import com.wireguard.config.Config
-import kotlinx.coroutines.CoroutineScope
 import com.wireguard.android.backend.Tunnel
 
 

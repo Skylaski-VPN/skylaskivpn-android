@@ -7,8 +7,8 @@ import android.util.Log
 import android.webkit.WebView
 import android.webkit.WebViewClient
 
-const val DEEP_LINK_PREFIX = "skylaski://wgm0.skylaski.com/skylaskivpnapp"
-const val GOOGLE_LOGIN_DEEP_LINK_PREFIX = "skylaski://wgm0.skylaski.com/google-login"
+const val DEEP_LINK_PREFIX = "skylaski://www0.skylaski.com/skylaskivpnapp"
+const val GOOGLE_LOGIN_DEEP_LINK_PREFIX = "skylaski://www0.skylaski.com/google-login"
 
 class WebViewClient(context: Context) : WebViewClient() {
     private var myContext = context
@@ -20,7 +20,7 @@ class WebViewClient(context: Context) : WebViewClient() {
         if (url.toString().startsWith(DEEP_LINK_PREFIX)) {
             Log.i(mTAG, "User Signing in From WebViewClient")
             // get token from string
-            val pattern = Regex("^skylaski:\\/\\/wgm0\\.skylaski\\.com\\/skylaskivpnapp\\?token=(.*)$")
+            val pattern = Regex("^skylaski:\\/\\/www0\\.skylaski\\.com\\/skylaskivpnapp\\?token=(.*)$")
             val matchResult = pattern.find(url.toString())
             val userToken = matchResult!!.groupValues[1]
 

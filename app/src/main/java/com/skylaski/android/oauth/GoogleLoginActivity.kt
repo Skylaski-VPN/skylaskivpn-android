@@ -7,7 +7,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.skylaski.R
 
-private const val GOOGLE_LOGIN_URL = "https://wgm0.skylaski.com/sign-in/google-mobile.php"
+private const val GOOGLE_LOGIN_URL = "https://www0.skylaski.com/sign-in/google-mobile.php"
 
 class GoogleLoginActivity : AppCompatActivity() {
     private val mTag = "GoogleLoginActivity"

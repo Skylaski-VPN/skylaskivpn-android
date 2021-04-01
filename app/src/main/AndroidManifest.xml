@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.skylaski"
     android:installLocation="internalOnly">
 
@@ -26,7 +25,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                <data
-                    android:host="wgm0.skylaski.com"
+                    android:host="www0.skylaski.com"
                     android:pathPrefix="/google-login"
                     android:scheme="skylaski" />
             </intent-filter>
@@ -41,7 +40,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="wgm0.skylaski.com"
+                    android:host="www0.skylaski.com"
                     android:pathPrefix="/skylaskivpnapp"
                     android:scheme="skylaski" />
             </intent-filter>
