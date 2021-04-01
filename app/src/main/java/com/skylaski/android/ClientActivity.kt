@@ -3,7 +3,6 @@ package com.skylaski.android
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
@@ -45,7 +44,6 @@ class ClientActivity : AppCompatActivity() {
 
         // Setup the WireGuard GoBackend
         val backendThread = Thread(Runnable {
-            Log.i(mTAG,"Starting GoBackend")
             wgBackend = GoBackend(applicationContext)
             GoBackend.setAlwaysOnCallback {
                 tunnelManager.connect(sharedPreferences)
@@ -64,7 +62,6 @@ class ClientActivity : AppCompatActivity() {
         val permissionActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { tunnelManager.toggleTunnelWithPermissionsResult() }
         val permissionIntent = GoBackend.VpnService.prepare(applicationContext)
         if(permissionIntent != null){
-            Log.i(mTAG, "Prepare Intent Launched")
             permissionActivityResultLauncher.launch(permissionIntent)
         }
 
@@ -87,7 +84,6 @@ class ClientActivity : AppCompatActivity() {
         // Check if user already has a configuration
         Toast.makeText(applicationContext, "Checking Config", Toast.LENGTH_SHORT).show()
         if (WGMApi.checkClientConfig(sharedPreferences)) {
-            Log.i(mTAG, "connection: Device Configured")
             findViewById<TextView>(R.id.alertText).text = ""
 
             // Set the connection toggle to disconnected by default
@@ -112,7 +108,6 @@ class ClientActivity : AppCompatActivity() {
 
         } else {
             // Client should be created via checkClientConfig if it didn't exist
-            Log.i(mTAG, "connection: Device Not Configured and couldn't be created")
             // disable everything but the alert text
             findViewById<TextView>(R.id.titleText).isEnabled = false
             findViewById<Spinner>(R.id.locationSpinner).isEnabled = false
@@ -138,7 +133,6 @@ class ClientActivity : AppCompatActivity() {
         val locationJSONArray = JSONArray(locationSavedArray)
         for (i in 0 until locationJSONArray.length()){
             val tempJSONObject = JSONObject(locationJSONArray[i].toString())
-            Log.i(mTAG,"Location: "+tempJSONObject.getString("name"))
             locationList.add(tempJSONObject.getString("name"))
         }
 
@@ -227,7 +221,6 @@ class ClientActivity : AppCompatActivity() {
         if(connectionSwitch.isChecked){
             // Connect to the VPN
             connectionSwitch.text = "Connected"
-            Log.i(mTAG,"Toggle Connection ON")
             Toast.makeText(applicationContext,"Connecting",Toast.LENGTH_SHORT).show()
 
             tunnelManager.connect(mSharedPreferences)
@@ -236,7 +229,6 @@ class ClientActivity : AppCompatActivity() {
         else {
             // Disconnect from VPN
             connectionSwitch.text = "Connect"
-            Log.i(mTAG,"Toggle Connection OFF")
             Toast.makeText(applicationContext,"Disconnecting",Toast.LENGTH_SHORT).show()
 
             tunnelManager.disconnect(mSharedPreferences)
@@ -248,7 +240,6 @@ class ClientActivity : AppCompatActivity() {
         val dnsSwitch = view.findViewById<SwitchMaterial>(R.id.dnsSwitch)
 
         if(dnsSwitch.isChecked){
-            Log.i(mTAG,"DNS Switch On")
             mSharedPreferences.edit().putString("device_dns", DEFAULT_DNS_BLOCKING).apply()
             dnsSwitch.text="Blocking Trackers"
 
@@ -265,7 +256,6 @@ class ClientActivity : AppCompatActivity() {
             tunnelManager.connect(mSharedPreferences)
         }
         else{
-            Log.i(mTAG,"DNS Switch Off")
             mSharedPreferences.edit().putString("device_dns", DEFAULT_DNS_NO_BLOCKING).apply()
             dnsSwitch.text="Block Trackers"
 
@@ -284,7 +274,6 @@ class ClientActivity : AppCompatActivity() {
     }
 
     fun onLogout(view: View){
-        Log.i(mTAG,"Log Out Button Clicked")
 
         // We should kill all running tunnels before clearing the preferences
         tunnelManager.disconnect(mSharedPreferences)
@@ -305,17 +294,14 @@ class ClientActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        Log.i(mTAG,"ON PAUSE")
 
     }
 
     override fun onStop() {
         super.onStop()
-        Log.i(mTAG,"ON STOP")
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.i(mTAG,"ON DESTROY")
     }
 }

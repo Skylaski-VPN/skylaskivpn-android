@@ -3,7 +3,6 @@ package com.skylaski.android.wgm
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import android.webkit.WebView
 import android.webkit.WebViewClient
 
@@ -18,7 +17,6 @@ class WebViewClient(context: Context) : WebViewClient() {
 
         // Check for the website detecting the app and redirecting us back in.
         if (url.toString().startsWith(DEEP_LINK_PREFIX)) {
-            Log.i(mTAG, "User Signing in From WebViewClient")
             // get token from string
             val pattern = Regex("^skylaski:\\/\\/www0\\.skylaski\\.com\\/skylaskivpnapp\\?token=(.*)$")
             val matchResult = pattern.find(url.toString())

@@ -1,7 +1,6 @@
 package com.skylaski.android.wgm
 
 import android.content.SharedPreferences
-import android.util.Log
 import com.skylaski.android.wgm.wireguard.WGKeys
 import org.json.JSONObject
 
@@ -33,7 +32,6 @@ public object WGMApi {
                 dnsApiResponse = JSONObject("""$response""")
 
             } catch (ex: Exception) {
-                Log.d("Exception", ex.toString())
             }
         })
         requestThread.start()
@@ -68,7 +66,6 @@ public object WGMApi {
                 clientsResponse = JSONObject("""$response""")
 
             } catch (ex: Exception) {
-                Log.d(mTAG, ex.toString())
             }
         })
         requestThread.start()
@@ -95,7 +92,6 @@ public object WGMApi {
                 )
                 upgradeResponse = JSONObject("""$response""")
             } catch (ex: Exception){
-                Log.i(mTAG,ex.toString())
             }
         })
         requestThread.start()
@@ -122,7 +118,6 @@ public object WGMApi {
                 )
                 planResponse = JSONObject("""$response""")
             } catch (ex: Exception){
-                Log.i(mTAG, ex.toString())
             }
         })
         requestThread.start()
@@ -148,7 +143,6 @@ public object WGMApi {
                 )
                 userResponse = JSONObject("""$response""")
             } catch (ex: Exception) {
-                Log.i(mTAG, ex.toString())
             }
         })
         requestThread.start()
@@ -182,7 +176,6 @@ public object WGMApi {
                 )
                 clientResponse = JSONObject("""$response""")
             } catch (ex: Exception) {
-                Log.d(mTAG, ex.toString())
             }
         })
         mRequestThread.start()
@@ -279,7 +272,6 @@ public object WGMApi {
         // Send the create_client command to API
         val mRequestThread = Thread(Runnable {
             try{
-                Log.i(mTAG, "In create client thread")
                 val response = ApiRequestHandler.requestPOST(
                     CLIENT_API_ENDPOINT,
                     getClientReqBody,
@@ -289,7 +281,6 @@ public object WGMApi {
                 mClientResponse = JSONObject("""$response""")
 
             } catch (ex: Exception){
-                Log.d(mTAG, ex.toString())
             }
         })
         mRequestThread.start()
@@ -310,7 +301,6 @@ public object WGMApi {
 
         val mRequestThread = Thread(Runnable {
             try {
-                Log.i(mTAG, "In get locations thread")
                 // Get Available Locations
                 val response = ApiRequestHandler.requestPOST(
                     CLIENT_API_ENDPOINT,
@@ -322,7 +312,6 @@ public object WGMApi {
                 sharedPreferences.edit().putString("locationJSON",locationJSON.toString()).apply()
                 success = true
             } catch (ex: Exception) {
-                Log.d(mTAG, ex.toString())
             }
         })
         mRequestThread.start()
@@ -344,7 +333,6 @@ public object WGMApi {
 
         val mRequestThread = Thread(Runnable {
             try {
-                Log.i(mTAG, "In attach location  thread")
                 // Get Available Locations
                 val response = ApiRequestHandler.requestPOST(
                     CLIENT_API_ENDPOINT,
@@ -353,9 +341,7 @@ public object WGMApi {
                 )
 
                 val attachResponse = JSONObject("""$response""")
-                Log.i(mTAG,attachResponse.toString())
             } catch (ex: Exception) {
-                Log.d(mTAG, ex.toString())
                 success = true
             }
         })
@@ -377,7 +363,6 @@ public object WGMApi {
 
         val mRequestThread = Thread(Runnable {
             try {
-                Log.i(mTAG, "In detach location  thread")
                 // Get Available Locations
                 val response = ApiRequestHandler.requestPOST(
                     CLIENT_API_ENDPOINT,
@@ -385,10 +370,8 @@ public object WGMApi {
                     sharedPreferences.getString("user_token", "")!!
                 )
                 val detachResponse = JSONObject("""$response""")
-                Log.i(mTAG,detachResponse.toString())
                 success = true
             } catch (ex: Exception) {
-                Log.d(mTAG, ex.toString())
             }
         })
         mRequestThread.start()
@@ -408,7 +391,6 @@ public object WGMApi {
 
         val mRequestThread = Thread(Runnable {
             try {
-                Log.i(mTAG, "In detach location  thread")
                 // Get Available Locations
                 val response = ApiRequestHandler.requestPOST(
                     USER_API_ENDPOINT,
@@ -416,10 +398,8 @@ public object WGMApi {
                     sharedPreferences.getString("user_token", "")!!
                 )
                 val deleteResponse = JSONObject("""$response""")
-                Log.i(mTAG, deleteResponse.toString())
                 success = true
             } catch (ex: Exception) {
-                Log.d(mTAG, ex.toString())
             }
         })
         mRequestThread.start()

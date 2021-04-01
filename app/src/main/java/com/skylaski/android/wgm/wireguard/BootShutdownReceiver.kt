@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.util.Log
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey.DEFAULT_MASTER_KEY_ALIAS
 import com.wireguard.android.backend.GoBackend
@@ -40,13 +39,11 @@ class BootShutdownReceiver: BroadcastReceiver() {
 
         val action = intent.action
         if (Intent.ACTION_BOOT_COMPLETED == action) {
-            Log.i(mTAG, "Broadcast receiver restoring state (boot)")
 
             tunnelManager.connect(sharedPreferences)
 
         } else if (Intent.ACTION_SHUTDOWN == action) {
             // Not sure what to do on shutdown yet, state is saved in encrypted sharedPreferences
-            Log.i(mTAG, "Broadcast receiver saving state (shutdown)")
             //tunnelManager.saveState()
         }
 

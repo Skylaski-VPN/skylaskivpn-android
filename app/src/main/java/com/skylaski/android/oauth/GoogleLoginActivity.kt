@@ -3,7 +3,6 @@ package com.skylaski.android.oauth
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.skylaski.R
 
@@ -23,7 +22,6 @@ class GoogleLoginActivity : AppCompatActivity() {
 
         val intentAction = intent.action
         if(intentAction == Intent.ACTION_VIEW) {
-            Log.i(mTag,"Logging in via Google")
             val newIntent = Intent(Intent.ACTION_VIEW, Uri.parse(GOOGLE_LOGIN_URL))
             startActivity(newIntent)
         }

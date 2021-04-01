@@ -2,7 +2,6 @@ package com.skylaski.android.wgm.wireguard
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.util.Log
 import android.widget.Toast
 import com.wireguard.android.backend.GoBackend
 import com.wireguard.config.Config
@@ -16,19 +15,16 @@ class TunnelManager(context: Context, backend: GoBackend, tunnel: MyTunnel) {
     private val mTunnel = tunnel
 
     fun toggleTunnelWithPermissionsResult(){
-        Log.i(mTAG,"Permissions to create VPN granted.")
         Toast.makeText(mContext,"Permissions Granted, Thank You!",Toast.LENGTH_SHORT).show()
     }
 
     fun connect(sharedPreferences: SharedPreferences) {
-        Log.i(mTAG,"Connecting VPN")
         val wgConfigText = sharedPreferences.getString("wireguard_client_config","")
         try {
             val wgConfigParsed = Config.parse(
                 wgConfigText!!.byteInputStream(Charsets.UTF_8).bufferedReader(Charsets.UTF_8)
             )
         }catch(ex: Exception){
-            Log.d(mTAG,ex.toString())
         }
 
         val connectThread = Thread(Runnable {
@@ -40,7 +36,6 @@ class TunnelManager(context: Context, backend: GoBackend, tunnel: MyTunnel) {
                 )
                 mBackend.setState(mTunnel, Tunnel.State.UP, config)
             } catch (ex: Exception) {
-                Log.i(mTAG, ex.toString())
             }
         })
         connectThread.start()
@@ -54,7 +49,6 @@ class TunnelManager(context: Context, backend: GoBackend, tunnel: MyTunnel) {
     }
 
     fun disconnect(sharedPreferences: SharedPreferences){
-        Log.i(mTAG,"Disconnecting VPN")
 
         val disconnectThread = Thread(Runnable {
             mBackend.setState(mTunnel, Tunnel.State.DOWN,null)

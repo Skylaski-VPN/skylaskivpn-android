@@ -6,7 +6,6 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.webkit.WebView
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey.DEFAULT_MASTER_KEY_ALIAS
@@ -49,16 +48,12 @@ class MainActivity : AppCompatActivity() {
 
         // Check if the client already knows the device's local id
         if(deviceId == ""){
-            Log.i(mTAG,"No device id saved, generating a new one")
             deviceId = Settings.Secure.ANDROID_ID
             sharedPreferences.edit().putString("device_id", deviceId).apply()
         }
-        else{
-            Log.i(mTAG, "Device id exists: $deviceId")
-        }
+
         // check if client already knows the device's name
         if(deviceName == ""){
-            Log.i(mTAG,"No device name, generating a new one")
             deviceName = android.os.Build.MODEL
             sharedPreferences.edit().putString("device_name", deviceName).apply()
         }
@@ -66,7 +61,6 @@ class MainActivity : AppCompatActivity() {
         if(localUid == ""){
             val combinedString: String = "$deviceName . $deviceId"
             localUid = HashUtils.sha256(combinedString)
-            Log.i(mTAG,"No local_uid, generated a new one")
             sharedPreferences.edit().putString("local_uid",localUid).apply()
         }
         // Check if the client already acquired an API token, if so we redirect to ProfileActivity
