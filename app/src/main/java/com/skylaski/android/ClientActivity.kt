@@ -2,6 +2,7 @@ package com.skylaski.android
 
 import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.*
@@ -290,6 +291,12 @@ class ClientActivity : AppCompatActivity() {
 
         mSharedPreferences.edit().clear().apply()
         finish()
+    }
+
+    fun account(view: View){
+        // load the default browser to take the user to their account page
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(ACCOUNT_URI))
+        startActivity(intent)
     }
 
     override fun onPause() {

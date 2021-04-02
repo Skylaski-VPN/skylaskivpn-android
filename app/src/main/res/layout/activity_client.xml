@@ -62,13 +62,22 @@
             android:text="ALERT" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/accountButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="account"
+            android:text="Account"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            app:backgroundTint="@color/skylaski_red" />
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/logoutButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/skylaski_red"
-            android:textColor="@color/white"
             android:onClick="onLogout"
             android:text="Log Out"
+            android:textColor="@color/white"
             android:textAlignment="center"
             app:backgroundTint="@color/skylaski_red" />
 

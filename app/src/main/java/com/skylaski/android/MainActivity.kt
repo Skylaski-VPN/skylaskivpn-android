@@ -16,6 +16,7 @@ const val DEEP_LINK_PREFIX = "skylaski://www0.skylaski.com/skylaskivpnapp"
 public const val USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36 SkylaskiVPN0.1"
 public const val SKYLASKI_LOGIN_URL = "https://www0.skylaski.com/sign-in/index.php"
 public const val DEFAULT_KILLSWITCH = "on"
+public const val ACCOUNT_URI = "https://www0.skylaski.com/sign-in/"
 
 class MainActivity : AppCompatActivity() {
 
