@@ -7,7 +7,6 @@ import android.content.SharedPreferences
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
 import android.widget.Button
@@ -73,7 +72,7 @@ class NoAccountActivity : AppCompatActivity() {
         productDescriptionTextView.setPadding(25, 25, 25, 25)
         productDescriptionTextView.gravity = Gravity.CENTER
 
-        Log.i(mTag,"Subscription Period: "+skuDetails.subscriptionPeriod)
+        //Log.i(mTag,"Subscription Period: "+skuDetails.subscriptionPeriod)
         var monthlyPrice = 0
         var monthlyPriceDouble: Double = 0.0
         if(skuDetails.subscriptionPeriod == "P1Y"){
@@ -145,8 +144,8 @@ class NoAccountActivity : AppCompatActivity() {
 
             billingClient.querySkuDetailsAsync(params.build()) { _, skuDetailsList ->
                 skuDetailsList!!.forEach {
-                    Log.i(mTag, "Title: " + it.title.toString())
-                    Log.i(mTag, "SKU: " + it.sku.toString())
+                    //Log.i(mTag, "Title: " + it.title.toString())
+                    //Log.i(mTag, "SKU: " + it.sku.toString())
                     createProductCard(context,findViewById<LinearLayout>(R.id.skusLinearLayout), it)
 
                 }
@@ -170,7 +169,7 @@ class NoAccountActivity : AppCompatActivity() {
         val matchResult = pattern.find(deepLinkIntent.dataString.toString())
         token = matchResult!!.groupValues[1]
 
-        Log.i(mTag,"User Token: $token")
+        //Log.i(mTag,"User Token: $token")
 
         val purchasesUpdatedListener =
             PurchasesUpdatedListener { billingResult, purchases ->
@@ -178,9 +177,9 @@ class NoAccountActivity : AppCompatActivity() {
 
 
                 if(billingResult.responseCode == BillingClient.BillingResponseCode.OK){
-                    Log.i(mTag,"Found a Purchase: "+billingResult.responseCode.toString())
-                    Log.i(mTag,"Purchase Token: "+purchases!![0].purchaseToken.toString())
-                    Log.i(mTag,"Product ID: "+ purchases[0].sku.toString())
+                    //Log.i(mTag,"Found a Purchase: "+billingResult.responseCode.toString())
+                    //Log.i(mTag,"Purchase Token: "+purchases!![0].purchaseToken.toString())
+                    //Log.i(mTag,"Product ID: "+ purchases[0].sku.toString())
 
                     //WGMApi.createCheckout(token, purchases!![0].purchaseToken, purchases!![0].sku)
                     Toast.makeText(applicationContext,getString(R.string.thank_you),Toast.LENGTH_LONG)
@@ -190,7 +189,7 @@ class NoAccountActivity : AppCompatActivity() {
 
                     // Server should be caught up by now. Nothing happens until we can find our purchase on Skylaski's servers.
                     // Let's try to create our checkout.
-                    if(WGMApi.googleCheckout(token, purchases[0].purchaseToken, purchases[0].sku)){
+                    if(WGMApi.googleCheckout(token, purchases!![0].purchaseToken, purchases[0].sku)){
                         // confirm purchase with google
                         val acknowledgePurchaseParams = AcknowledgePurchaseParams.newBuilder()
                             .setPurchaseToken(purchases[0].purchaseToken)
@@ -243,7 +242,7 @@ class NoAccountActivity : AppCompatActivity() {
                 if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
                     // The BillingClient is ready. You can query purchases here.
 
-                    Log.i(mTag, "BillingClient is Ready")
+                    //Log.i(mTag, "BillingClient is Ready")
 
                     // Before offering an item for sale, check that the user does not already own the item.
                     // If the user has a consumable that is still in their item library,

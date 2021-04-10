@@ -28,8 +28,8 @@
             android:id="@+id/titleText"
             android:layout_width="match_parent"
             android:layout_height="61dp"
-            android:gravity="bottom|left"
-            android:text="Choose Your Location"
+            android:gravity="bottom|start"
+            android:text="@string/choose_location"
             android:textSize="24sp" />
 
         <androidx.appcompat.widget.AppCompatSpinner
@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="74dp"
             android:onClick="onConnectSwitch"
-            android:text="Connect"
+            android:text="@string/connect"
             android:textColorLink="#AA0000"
             android:textSize="24sp" />
 
@@ -54,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="79dp"
             android:onClick="onDNSSwitch"
-            android:text="Block Trackers"
+            android:text="@string/block_trackers"
             android:textSize="24sp" />
 
         <com.google.android.material.button.MaterialButton
@@ -62,7 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="account"
-            android:text="Account"
+            android:text="@string/account"
             android:textAlignment="center"
             android:textColor="@color/white"
             app:backgroundTint="@color/skylaski_red" />
@@ -72,7 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onLogout"
-            android:text="Log Out"
+            android:text="@string/log_out"
             android:textAlignment="center"
             android:textColor="@color/white"
             app:backgroundTint="@color/skylaski_red" />
@@ -83,7 +83,7 @@
             android:layout_height="100dp"
             android:enabled="false"
             android:paddingVertical="25dp"
-            android:text="ALERT" />
+            android:text="@string/device_id" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.constraintlayout.widget.ConstraintLayout>

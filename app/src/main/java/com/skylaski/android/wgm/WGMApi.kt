@@ -1,7 +1,6 @@
 package com.skylaski.android.wgm
 
 import android.content.SharedPreferences
-import android.util.Log
 import com.skylaski.android.wgm.wireguard.WGKeys
 import org.json.JSONObject
 
@@ -29,7 +28,7 @@ public object WGMApi {
                     token
                 )
                 checkoutApiResponse = JSONObject("""$response""")
-                Log.i(mTAG,"Checkout Response: "+checkoutApiResponse.toString())
+                // Log.i(mTAG,"Checkout Response: "+checkoutApiResponse.toString())
             } catch (ex: Exception) {
             }
         })
@@ -307,7 +306,7 @@ public object WGMApi {
                     getClientReqBody,
                     sharedPreferences.getString("user_token", "")!!
                 )
-                Log.i(mTAG,"Create Client Response: "+mClientResponse.toString())
+                //Log.i(mTAG,"Create Client Response: "+mClientResponse.toString())
                 mClientResponse = JSONObject("""$response""")
 
             } catch (ex: Exception){
