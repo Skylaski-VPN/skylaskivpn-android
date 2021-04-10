@@ -12,7 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center|top"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="-16dp"
+        tools:layout_editor_absoluteY="92dp">
 
         <ImageView
             android:id="@+id/imageView"
@@ -35,7 +37,8 @@
             android:layout_width="match_parent"
             android:layout_height="61dp"
             android:background="@android:color/darker_gray"
-            android:gravity="center_horizontal" />
+            android:gravity="center_horizontal"
+            android:textSize="18sp" />
 
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/connectionSwitch"
@@ -54,13 +57,6 @@
             android:text="Block Trackers"
             android:textSize="24sp" />
 
-        <TextView
-            android:id="@+id/alertText"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:enabled="false"
-            android:text="ALERT" />
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/accountButton"
             android:layout_width="wrap_content"
@@ -77,9 +73,17 @@
             android:layout_height="wrap_content"
             android:onClick="onLogout"
             android:text="Log Out"
-            android:textColor="@color/white"
             android:textAlignment="center"
+            android:textColor="@color/white"
             app:backgroundTint="@color/skylaski_red" />
+
+        <TextView
+            android:id="@+id/alertText"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:enabled="false"
+            android:paddingVertical="25dp"
+            android:text="ALERT" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.constraintlayout.widget.ConstraintLayout>

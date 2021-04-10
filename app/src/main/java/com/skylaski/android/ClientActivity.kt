@@ -54,7 +54,7 @@ class ClientActivity : AppCompatActivity() {
         backendThread.start()
         while(backendThread.isAlive){
             run{
-                Toast.makeText(applicationContext,"Starting Backend",Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext,getString(R.string.starting),Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -83,26 +83,26 @@ class ClientActivity : AppCompatActivity() {
         sharedPreferences.edit().putString("user_token", token).apply()
 
         // Check if user already has a configuration
-        Toast.makeText(applicationContext, "Checking Config", Toast.LENGTH_SHORT).show()
+        Toast.makeText(applicationContext, getString(R.string.loading), Toast.LENGTH_SHORT).show()
         if (WGMApi.checkClientConfig(sharedPreferences)) {
             findViewById<TextView>(R.id.alertText).text = ""
 
             // Set the connection toggle to disconnected by default
             val connectionSwitch = findViewById<SwitchMaterial>(R.id.connectionSwitch)
             connectionSwitch.isChecked = false
-            connectionSwitch.text = "Connect"
+            connectionSwitch.text = getString(R.string.connect)
             if (sharedPreferences.getBoolean("is_connected", false)) {
                 connectionSwitch.isChecked = true
-                connectionSwitch.text = "Connected"
+                connectionSwitch.text = getString(R.string.connected)
             }
 
             // Set the DNS toggle
             val dnsSwitch = findViewById<SwitchMaterial>(R.id.dnsSwitch)
             dnsSwitch.isChecked = true
-            dnsSwitch.text = "Blocking Trackers"
+            dnsSwitch.text = getString(R.string.blocking_trackers)
             if (sharedPreferences.getString("device_dns", DEFAULT_DNS_BLOCKING) != DEFAULT_DNS_BLOCKING) {
                 dnsSwitch.isChecked = false
-                dnsSwitch.text = "Block Trackers"
+                dnsSwitch.text = getString(R.string.block_trackers)
             }
 
             getLocations(sharedPreferences)
@@ -118,14 +118,14 @@ class ClientActivity : AppCompatActivity() {
                     .setText(R.string.max_device_alert)
         }
         findViewById<TextView>(R.id.alertText)
-            .setText("Unique ID: "+sharedPreferences.getString("local_uid","Unknown").toString())
+            .setText(getString(R.string.device_id)+": "+sharedPreferences.getString("local_uid","Unknown").toString())
     }
 
     private fun getLocations(sharedPreferences: SharedPreferences){
         // getAvailable Locations and store them
 
         if(sharedPreferences.getString("locationJSON",null) == null) {
-            Toast.makeText(applicationContext,"Getting Locations",Toast.LENGTH_SHORT).show()
+            //Toast.makeText(applicationContext,"Getting Locations",Toast.LENGTH_SHORT).show()
             WGMApi.getLocations(sharedPreferences)
         }
 
@@ -184,7 +184,7 @@ class ClientActivity : AppCompatActivity() {
     }
 
     fun detachLocation(sharedPreferences: SharedPreferences) : Boolean{
-        Toast.makeText(applicationContext,"Detaching",Toast.LENGTH_SHORT).show()
+        //Toast.makeText(applicationContext,"Forgetting Server",Toast.LENGTH_SHORT).show()
         WGMApi.detachClient(sharedPreferences)
 
         // update sharedPreferences
@@ -199,7 +199,7 @@ class ClientActivity : AppCompatActivity() {
     fun attachLocation(locationUID: String, sharedPreferences: SharedPreferences) : Boolean{
         // attempt to attach the client to a GW server at the identified location
 
-        Toast.makeText(applicationContext,"Attaching",Toast.LENGTH_SHORT).show()
+        Toast.makeText(applicationContext,getString(R.string.finding_server),Toast.LENGTH_SHORT).show()
         WGMApi.attachClient(sharedPreferences,locationUID)
 
         // We just attached a new location, clear config and recheck client config
@@ -207,7 +207,6 @@ class ClientActivity : AppCompatActivity() {
         // connect by default
 
         sharedPreferences.edit().putString("wireguard_client_config",null).apply()
-        Toast.makeText(applicationContext,"Checking Configuration",Toast.LENGTH_SHORT).show()
         WGMApi.checkClientConfig(sharedPreferences)
 
         tunnelManager.connect(sharedPreferences)
@@ -221,16 +220,16 @@ class ClientActivity : AppCompatActivity() {
 
         if(connectionSwitch.isChecked){
             // Connect to the VPN
-            connectionSwitch.text = "Connected"
-            Toast.makeText(applicationContext,"Connecting",Toast.LENGTH_SHORT).show()
+            connectionSwitch.text = getString(R.string.connected)
+            Toast.makeText(applicationContext,getString(R.string.connecting),Toast.LENGTH_SHORT).show()
 
             tunnelManager.connect(mSharedPreferences)
 
         }
         else {
             // Disconnect from VPN
-            connectionSwitch.text = "Connect"
-            Toast.makeText(applicationContext,"Disconnecting",Toast.LENGTH_SHORT).show()
+            connectionSwitch.text = getString(R.string.connect)
+            Toast.makeText(applicationContext,getString(R.string.disconnecting),Toast.LENGTH_SHORT).show()
 
             tunnelManager.disconnect(mSharedPreferences)
         }
@@ -242,7 +241,7 @@ class ClientActivity : AppCompatActivity() {
 
         if(dnsSwitch.isChecked){
             mSharedPreferences.edit().putString("device_dns", DEFAULT_DNS_BLOCKING).apply()
-            dnsSwitch.text="Blocking Trackers"
+            dnsSwitch.text= getString(R.string.blocking_trackers)
 
             // Now get the latest DNS server information
             val dnsResponse = WGMApi.getDNS(mSharedPreferences, DEFAULT_DNS_BLOCKING)
@@ -258,7 +257,7 @@ class ClientActivity : AppCompatActivity() {
         }
         else{
             mSharedPreferences.edit().putString("device_dns", DEFAULT_DNS_NO_BLOCKING).apply()
-            dnsSwitch.text="Block Trackers"
+            dnsSwitch.text= getString(R.string.block_trackers)
 
             // Now get the latest DNS server information
             val dnsResponse = WGMApi.getDNS(mSharedPreferences, DEFAULT_DNS_NO_BLOCKING)
@@ -286,11 +285,13 @@ class ClientActivity : AppCompatActivity() {
         //Toast.makeText(applicationContext,"Detaching Client", Toast.LENGTH_SHORT).show()
         //WGMApi.detachClient(mSharedPreferences)
 
-        Toast.makeText(applicationContext,"Deleting Client", Toast.LENGTH_SHORT).show()
+        Toast.makeText(applicationContext,getString(R.string.cleaning_up), Toast.LENGTH_SHORT).show()
         WGMApi.deleteClient(mSharedPreferences)
 
         mSharedPreferences.edit().clear().apply()
-        finish()
+        finishAffinity()
+
+
     }
 
     fun account(view: View){

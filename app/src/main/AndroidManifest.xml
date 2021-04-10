@@ -6,6 +6,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="com.android.vending.BILLING" />
+
 
     <application
         android:allowBackup="false"
@@ -17,26 +19,43 @@
         android:theme="@style/Theme.SkylaskiVPN">
 
         <activity
-            android:name=".android.oauth.GoogleLoginActivity"
+            android:name=".android.NoAccountActivity"
             android:label="@string/app_name">
-
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-               <data
+                <data
+                    android:host="www0.skylaski.com"
+                    android:pathPrefix="/NoAccount"
+                    android:scheme="skylaski" />
+            </intent-filter>
+
+        </activity>
+
+        <activity
+            android:name=".android.oauth.GoogleLoginActivity"
+            android:label="@string/app_name">
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
                     android:host="www0.skylaski.com"
                     android:pathPrefix="/google-login"
                     android:scheme="skylaski" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".android.ClientActivity"
             android:label="@string/app_name">
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
@@ -46,7 +65,6 @@
                     android:scheme="skylaski" />
             </intent-filter>
         </activity>
-
         <activity android:name=".android.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

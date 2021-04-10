@@ -1,6 +1,7 @@
 package com.skylaski.android.wgm
 
 import android.content.SharedPreferences
+import android.util.Log
 import com.skylaski.android.wgm.wireguard.WGKeys
 import org.json.JSONObject
 
@@ -12,6 +13,35 @@ public const val DEFAULT_DNS_NO_BLOCKING = "2"
 public object WGMApi {
 
     private const val mTAG = "wgmApi"
+
+    fun googleCheckout(token: String, purchaseCode: String, sku: String) : Boolean{
+        var checkoutApiResponse = JSONObject()
+        val createCheckoutReqBody = JSONObject().put("cmd","google_checkout")
+        createCheckoutReqBody.put("purchaseCode",purchaseCode)
+        createCheckoutReqBody.put("sku",sku)
+
+        val requestThread = Thread(Runnable {
+            try {
+                // Get client information
+                val response = ApiRequestHandler.requestPOST(
+                    USER_API_ENDPOINT,
+                    createCheckoutReqBody,
+                    token
+                )
+                checkoutApiResponse = JSONObject("""$response""")
+                Log.i(mTAG,"Checkout Response: "+checkoutApiResponse.toString())
+            } catch (ex: Exception) {
+            }
+        })
+        requestThread.start()
+        while (requestThread.isAlive) { // Make sure the API Calls finish before we move on
+            run {
+
+            }
+        }
+
+        return checkoutApiResponse.getBoolean("success")
+    }
 
     fun getDNS(sharedPreferences: SharedPreferences,dnsType: String): String {
         var dnsResponse = ""
@@ -277,7 +307,7 @@ public object WGMApi {
                     getClientReqBody,
                     sharedPreferences.getString("user_token", "")!!
                 )
-
+                Log.i(mTAG,"Create Client Response: "+mClientResponse.toString())
                 mClientResponse = JSONObject("""$response""")
 
             } catch (ex: Exception){

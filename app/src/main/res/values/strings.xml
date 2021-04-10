@@ -8,10 +8,35 @@
     <string name="disable_config_export_title">Disable config exporting</string>
     <string name="disable_config_export_description">Disabling config exporting makes private keys less accessible</string>
     <string name="title_activity_client">ClientActivity</string>
+
+    <string name="blocking_trackers">Blocking Trackers</string>
+    <string name="block_trackers">Block Trackers</string>
+    <string name="connect">Connect</string>
+    <string name="connected">Connected</string>
+    <string name="device_id">Device ID</string>
+
+    <string name="starting">Starting Skylaski VPN</string>
+    <string name="cleaning_up">Cleaning Up</string>
+
+    <string name="disconnecting">Disconnecting</string>
+    <string name="connecting">Connecting</string>
+    <string name="finding_server">Finding Server</string>
+    <string name="loading">Loading</string>
+
+    <string name="no_purchase_made">No Purchase Submitted</string>
+    <string name="checkout_failed">Checkout failed, no payment was received. Feel free to try again. Late payments are automatically refunded.</string>
+    <string name="billing_service_disconnected">Billing Service Disconnected</string>
+    <string name="thank_you">Thank You For Your Purchase!</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="billed_annually">Billed annually</string>
+    <string name="per_month"> per Month!</string>
+
     <!--
     This string is used for square devices and overridden by hello_world in
     values-round/strings.xml for round devices.
     -->
-    <string name="hello_world">Hello Square World!</string>
+    <string name="hello_world">Hello Round World!</string>
+
+    <string name="chooseAPlan">Choose a VPN Plan.</string>
 
 </resources>
