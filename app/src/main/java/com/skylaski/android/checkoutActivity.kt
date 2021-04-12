@@ -24,7 +24,7 @@ import com.skylaski.android.wgm.WGMApi
 import kotlinx.coroutines.*
 
 
-class NoAccountActivity : AppCompatActivity() {
+class checkoutActivity : AppCompatActivity() {
     private val mTag = "NoAccountActivity"
     private lateinit var mContext: Context
     private lateinit var coroutine: CoroutineScope
@@ -159,7 +159,7 @@ class NoAccountActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_no_account)
+        setContentView(R.layout.activity_checkout)
         coroutine = CoroutineScope(Job() + Dispatchers.Main.immediate)
         mContext = applicationContext
 

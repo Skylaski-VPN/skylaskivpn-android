@@ -19,7 +19,7 @@
         android:theme="@style/Theme.SkylaskiVPN">
 
         <activity
-            android:name=".android.NoAccountActivity"
+            android:name=".android.checkoutActivity"
             android:label="@string/app_name">
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />

@@ -24,66 +24,16 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@mipmap/ic_wings_foreground" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/titleText"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="61dp"
-            android:gravity="bottom|start"
-            android:text="@string/choose_location"
-            android:textSize="24sp" />
+            android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.AppCompatSpinner
-            android:id="@+id/locationSpinner"
-            android:layout_width="match_parent"
-            android:layout_height="61dp"
-            android:background="@android:color/darker_gray"
-            android:gravity="center_horizontal"
-            android:textSize="18sp" />
-
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/connectionSwitch"
-            android:layout_width="match_parent"
-            android:layout_height="74dp"
-            android:onClick="onConnectSwitch"
-            android:text="@string/connect"
-            android:textColorLink="#AA0000"
-            android:textSize="24sp" />
-
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/dnsSwitch"
-            android:layout_width="match_parent"
-            android:layout_height="79dp"
-            android:onClick="onDNSSwitch"
-            android:text="@string/block_trackers"
-            android:textSize="24sp" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/accountButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="account"
-            android:text="@string/account"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            app:backgroundTint="@color/skylaski_red" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/logoutButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onLogout"
-            android:text="@string/log_out"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            app:backgroundTint="@color/skylaski_red" />
-
-        <TextView
-            android:id="@+id/alertText"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:enabled="false"
-            android:paddingVertical="25dp"
-            android:text="@string/device_id" />
+            <LinearLayout
+                android:id="@+id/cardsLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </ScrollView>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.constraintlayout.widget.ConstraintLayout>
