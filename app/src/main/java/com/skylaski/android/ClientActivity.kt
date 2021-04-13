@@ -16,12 +16,14 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.text.HtmlCompat
+import androidx.core.view.setPadding
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.android.billingclient.api.BillingFlowParams
 import com.android.billingclient.api.SkuDetails
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.skylaski.R
+import com.skylaski.R.drawable.my_button
 import com.skylaski.android.wgm.DEFAULT_DNS_BLOCKING
 import com.skylaski.android.wgm.DEFAULT_DNS_NO_BLOCKING
 import com.skylaski.android.wgm.HashUtils
@@ -50,18 +52,19 @@ class ClientActivity : AppCompatActivity() {
     ) {
 
         if(type == "connection"){
-
+            // Define Cardview
             val cardView = CardView(context)
             val linearLayout = LinearLayout(context)
             val layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             )
+            // Define Layout
             linearLayout.gravity = Gravity.CENTER_HORIZONTAL
             linearLayout.layoutParams = LinearLayout.LayoutParams( LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
             linearLayout.orientation = LinearLayout.VERTICAL
 
-
+            // Set Card Params
             cardView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
             cardView.radius = 30F
             cardView.useCompatPadding = true
@@ -70,6 +73,7 @@ class ClientActivity : AppCompatActivity() {
             cardView.maxCardElevation = 30F
             cardView.maxCardElevation = 6F
 
+            // Card Title
             val chooseLocationTextView = TextView(context)
             chooseLocationTextView.layoutParams = layoutParams
             chooseLocationTextView.text = "Choose a Location"
@@ -77,11 +81,12 @@ class ClientActivity : AppCompatActivity() {
             chooseLocationTextView.setTextColor(Color.WHITE)
             chooseLocationTextView.setBackgroundColor(getColor(R.color.skylaski_red))
             chooseLocationTextView.setPadding(25, 25, 25, 25)
-
+            // Location Spinner
             val locationSpinner = Spinner(context)
             locationSpinner.layoutParams = layoutParams
             locationSpinner.setPadding(25,25,25,25)
 
+            // Connection Switch
             val connectionSwitch = Switch(context)
             connectionSwitch.layoutParams = layoutParams
             connectionSwitch.setTextSize(TypedValue.COMPLEX_UNIT_DIP,30F)
@@ -89,6 +94,7 @@ class ClientActivity : AppCompatActivity() {
             connectionSwitch.setPadding(25,25,25,25)
             connectionSwitch.setOnClickListener(View.OnClickListener { onConnectSwitch(connectionSwitch) })
 
+            // DNS Switch
             val dnsSwitch = Switch(context)
             dnsSwitch.layoutParams = layoutParams
             dnsSwitch.setTextSize(TypedValue.COMPLEX_UNIT_DIP,30F)
@@ -96,6 +102,7 @@ class ClientActivity : AppCompatActivity() {
             dnsSwitch.setPadding(25,25,25,25)
             dnsSwitch.setOnClickListener(View.OnClickListener { onDNSSwitch(dnsSwitch) })
 
+            // Bottom Text
             val alertTextView = TextView(context)
             alertTextView.layoutParams = layoutParams
             alertTextView.text = "Choose a Location"
@@ -105,6 +112,7 @@ class ClientActivity : AppCompatActivity() {
             alertTextView.setPadding(25, 25, 25, 25)
             chooseLocationTextView.gravity = Gravity.CENTER
 
+            // Set Connection and DNS Switch
             // Check if user already has a configuration
             Toast.makeText(applicationContext, getString(R.string.loading), Toast.LENGTH_SHORT).show()
             if (WGMApi.checkClientConfig(sharedPreferences)) {
@@ -125,7 +133,7 @@ class ClientActivity : AppCompatActivity() {
                     dnsSwitch.isChecked = false
                     dnsSwitch.text = getString(R.string.block_trackers)
                 }
-
+                // Fill the Location Spinner
                 getLocations(sharedPreferences,locationSpinner)
 
             } else {
@@ -139,29 +147,32 @@ class ClientActivity : AppCompatActivity() {
             }
             //alertTextView.text = getString(R.string.device_id)+": "+sharedPreferences.getString("local_uid","Unknown").toString()
 
+            // Add All to Layout
             linearLayout.addView(chooseLocationTextView)
             linearLayout.addView(locationSpinner)
             linearLayout.addView(connectionSwitch)
             linearLayout.addView(dnsSwitch)
             linearLayout.addView(alertTextView)
-
-
+            // Add Layout to Card
             cardView.addView(linearLayout)
-
+            // Add Card to Parent
             relativeLayout.addView(cardView)
         }
         else if(type == "account"){
+
+            // CardView
             val cardView = CardView(context)
             val linearLayout = LinearLayout(context)
             val layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             )
+            // Linear Layout
             linearLayout.gravity = Gravity.CENTER_HORIZONTAL
             linearLayout.layoutParams = LinearLayout.LayoutParams( LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
             linearLayout.orientation = LinearLayout.VERTICAL
 
-
+            // Cardview Settings
             cardView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
             cardView.radius = 30F
             cardView.useCompatPadding = true
@@ -170,6 +181,7 @@ class ClientActivity : AppCompatActivity() {
             cardView.maxCardElevation = 30F
             cardView.maxCardElevation = 6F
 
+            // Card Title Text
             val accountTitleTextView = TextView(context)
             accountTitleTextView.layoutParams = layoutParams
             accountTitleTextView.text = "Your Account"
@@ -178,6 +190,7 @@ class ClientActivity : AppCompatActivity() {
             accountTitleTextView.setBackgroundColor(getColor(R.color.skylaski_red))
             accountTitleTextView.setPadding(25, 25, 25, 25)
 
+            // Account Details Text HTML Formatted
             val accountDetailsTextView = TextView(context)
             accountDetailsTextView.layoutParams = layoutParams
             accountDetailsTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP,18F)
@@ -185,50 +198,112 @@ class ClientActivity : AppCompatActivity() {
             accountDetailsTextView.setBackgroundColor(Color.WHITE)
             accountDetailsTextView.setPadding(25,25,25,25)
 
-            // Get VPN Plan Details
+            // Get VPN Plan Details from API
             var plan = WGMApi.getPlan(sharedPreferences)
             Log.i(mTAG,"PLAN RESULTS: "+plan.toString())
-
+            // Fill Values
             var planDetailString = "<h3>"+plan.getJSONObject("result").getJSONObject("product").getString("name")+"</h3>\n"+
                     "<p><b>Expires: </b>"+plan.getJSONObject("result").getJSONObject("plan").getString("expiration")+"</p>\n"+
-                    "<p><b>Total Devices: </b>"+plan.getJSONObject("result").getJSONObject("product").getString("total_clients_per_user")+"</p>\n"+
-                    "<p><b>Total Users: </b>"+plan.getJSONObject("result").getJSONObject("product").getString("total_users")+"</p>\n"+
+                    //"<p><b>Total Devices: </b>"+plan.getJSONObject("result").getJSONObject("product").getString("total_clients_per_user")+"</p>\n"+
+                    //"<p><b>Total Users: </b>"+plan.getJSONObject("result").getJSONObject("product").getString("total_users")+"</p>\n"+
                     "<p><b>Device ID: </b>"+sharedPreferences.getString("local_uid","")+"</p>\n"
-
+            // Convert HTML
             accountDetailsTextView.text = HtmlCompat.fromHtml(planDetailString,1)
 
+            // Add All to Layout
+            linearLayout.addView(accountTitleTextView)
+            linearLayout.addView(accountDetailsTextView)
+
+            // Add layout to CardView
+            cardView.addView(linearLayout)
+            // Add Card to parent
+            relativeLayout.addView(cardView)
+        }
+        else if(type == "account_button"){
+            // CardView
+            val cardView = CardView(context)
+            val linearLayout = LinearLayout(context)
+            val layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+            // Linear Layout
+            linearLayout.gravity = Gravity.CENTER_HORIZONTAL
+            linearLayout.layoutParams = LinearLayout.LayoutParams( LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
+            linearLayout.orientation = LinearLayout.VERTICAL
+
+            // Cardview Settings
+            cardView.layoutParams = LinearLayout.LayoutParams(1024, LinearLayout.LayoutParams.WRAP_CONTENT)
+            cardView.radius = 30F
+            cardView.useCompatPadding = true
+            cardView.setPadding(25, 100, 25, 100)
+            cardView.setCardBackgroundColor(Color.WHITE)
+            cardView.maxCardElevation = 30F
+            cardView.maxCardElevation = 6F
+            cardView.foregroundGravity = Gravity.CENTER_HORIZONTAL
+
+            // Account Button
             var accountButton = Button(context)
-            accountButton.layoutParams = layoutParams
+            accountButton.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT)
             accountButton.text = getString(R.string.profile)
             accountButton.setTextSize(TypedValue.COMPLEX_UNIT_DIP,20F)
             accountButton.setTextColor(Color.WHITE)
-            accountButton.setBackgroundColor(getColor(R.color.dark_grey))
-            accountButton.setPadding(25,25,25,25)
+            accountButton.background = getDrawable(my_button)
+            accountButton.setPadding(0,25,0,25)
             accountButton.setOnClickListener( View.OnClickListener {
                 account()
             })
 
+            // Add All to Layout
+            linearLayout.addView(accountButton)
+
+            // Add layout to CardView
+            cardView.addView(linearLayout)
+            // Add Card to parent
+            relativeLayout.addView(cardView)
+        }
+        else if(type == "logout_button"){
+            // CardView
+            val cardView = CardView(context)
+            val linearLayout = LinearLayout(context)
+            val layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+            // Linear Layout
+            linearLayout.gravity = Gravity.CENTER_HORIZONTAL
+            linearLayout.layoutParams = LinearLayout.LayoutParams( LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
+            linearLayout.orientation = LinearLayout.VERTICAL
+
+            // Cardview Settings
+            cardView.layoutParams = LinearLayout.LayoutParams(1024, LinearLayout.LayoutParams.WRAP_CONTENT)
+            cardView.radius = 30F
+            cardView.useCompatPadding = true
+            cardView.setPadding(25, 100, 25, 100)
+            cardView.setCardBackgroundColor(Color.WHITE)
+            cardView.maxCardElevation = 30F
+            cardView.maxCardElevation = 6F
+            cardView.foregroundGravity = Gravity.CENTER_HORIZONTAL
+
+            // Logout Button
             var logOutButton = Button(context)
-            logOutButton.layoutParams = layoutParams
+            logOutButton.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT)
             logOutButton.text = getString(R.string.log_out)
             logOutButton.setTextSize(TypedValue.COMPLEX_UNIT_DIP,20F)
             logOutButton.setTextColor(Color.WHITE)
-            logOutButton.setBackgroundColor(getColor(R.color.dark_grey))
-            logOutButton.setPadding(25,25,25,25)
+            logOutButton.setPadding(0,25,0,25)
+            logOutButton.background = getDrawable(my_button)
             logOutButton.setOnClickListener( View.OnClickListener {
                 onLogout()
             })
 
-
-
-            linearLayout.addView(accountTitleTextView)
-            linearLayout.addView(accountDetailsTextView)
-            linearLayout.addView(accountButton)
+            // Add All to Layout
             linearLayout.addView(logOutButton)
 
 
+            // Add layout to CardView
             cardView.addView(linearLayout)
-
+            // Add Card to parent
             relativeLayout.addView(cardView)
         }
 
@@ -293,6 +368,11 @@ class ClientActivity : AppCompatActivity() {
 
         // Draw Account Dialog
         createCard(applicationContext,findViewById(R.id.cardsLinearLayout),"account",sharedPreferences)
+
+        // Draw Account Button
+        createCard(applicationContext,findViewById(R.id.cardsLinearLayout),"account_button", sharedPreferences)
+        // Draw Log Out Button
+        createCard(applicationContext,findViewById(R.id.cardsLinearLayout),"logout_button", sharedPreferences)
 
     }
 

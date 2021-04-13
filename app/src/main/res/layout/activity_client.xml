@@ -32,7 +32,8 @@
                 android:id="@+id/cardsLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" />
+                android:orientation="vertical"
+                android:gravity="center_horizontal"/>
         </ScrollView>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
