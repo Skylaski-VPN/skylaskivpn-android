@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="dark_grey">#474747</color>
     <color name="skylaski_red">#aa0000</color>
+    <color name="skylaski_blue">#1e90ff</color>
 </resources>
