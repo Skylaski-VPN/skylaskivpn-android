@@ -16,6 +16,7 @@
     <string name="connected">Connected</string>
     <string name="device_id">Device ID</string>
     <string name="profile">Profile</string>
+    <string name="test">Test</string>
     <string name="log_out">Log Out</string>
 
     <string name="account">Your Account</string>

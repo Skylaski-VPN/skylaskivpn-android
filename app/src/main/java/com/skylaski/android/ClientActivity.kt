@@ -374,7 +374,7 @@ class ClientActivity : AppCompatActivity() {
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             )
-            logOutButton.text = "Test"
+            logOutButton.text = getString(R.string.test)
             logOutButton.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20F)
             logOutButton.setTextColor(Color.WHITE)
             logOutButton.setPadding(0, 25, 0, 25)
