@@ -8,6 +8,7 @@ import android.webkit.WebViewClient
 
 const val DEEP_LINK_PREFIX = "skylaski://www0.skylaski.com/skylaskivpnapp"
 const val GOOGLE_LOGIN_DEEP_LINK_PREFIX = "skylaski://www0.skylaski.com/google-login"
+const val NOACCOUNT_DEEP_LINK_PREFIX = "skylaski://www0.skylaski.com/NoAccount"
 
 class WebViewClient(context: Context) : WebViewClient() {
     private var myContext = context
@@ -37,6 +38,12 @@ class WebViewClient(context: Context) : WebViewClient() {
             myContext.startActivity(intent)
             return true
 
+        }
+        else if(url.toString().startsWith(NOACCOUNT_DEEP_LINK_PREFIX)){
+            val intent = Intent(Intent.ACTION_VIEW,Uri.parse(url))
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            myContext.startActivity(intent)
+            return true
         }
 
         return super.shouldOverrideUrlLoading(view, url)

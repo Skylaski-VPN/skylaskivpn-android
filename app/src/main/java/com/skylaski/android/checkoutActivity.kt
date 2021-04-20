@@ -82,7 +82,7 @@ class checkoutActivity : AppCompatActivity() {
 
         val monthlyPriceTextView = TextView(context)
         monthlyPriceTextView.layoutParams = layoutParams
-        monthlyPriceTextView.text = "$"+"%.2f".format(monthlyPriceDouble)+getString(R.string.per_month)
+        monthlyPriceTextView.text = "$"+"%.2f".format(monthlyPriceDouble)+" "+getString(R.string.per_month)
         monthlyPriceTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 24F)
         monthlyPriceTextView.setTextColor(Color.BLACK)
         monthlyPriceTextView.setPadding(25, 25, 25, 25)
@@ -90,7 +90,7 @@ class checkoutActivity : AppCompatActivity() {
 
         val billingNoticeTextView = TextView(context)
         billingNoticeTextView.layoutParams = layoutParams
-        billingNoticeTextView.text = "*"+skuDetails.price +getString(R.string.billed_annually)
+        billingNoticeTextView.text = "*"+skuDetails.price +" "+getString(R.string.billed_annually)
         billingNoticeTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14F)
         billingNoticeTextView.setTextColor(Color.BLACK)
         billingNoticeTextView.setPadding(25, 25, 25, 25)

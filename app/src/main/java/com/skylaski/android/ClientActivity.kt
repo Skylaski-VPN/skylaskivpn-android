@@ -48,7 +48,7 @@ class ClientActivity : AppCompatActivity() {
     ) {
 
         if(type == "connection"){
-            // Define Cardview
+            // Define CardView
             val cardView = CardView(context)
             val linearLayout = LinearLayout(context)
             val layoutParams = LinearLayout.LayoutParams(
@@ -199,6 +199,7 @@ class ClientActivity : AppCompatActivity() {
 
             // Card Title Text
             val accountTitleTextView = TextView(context)
+            accountTitleTextView.gravity = Gravity.CENTER_HORIZONTAL
             accountTitleTextView.layoutParams = layoutParams
             accountTitleTextView.text = getString(R.string.account)
             accountTitleTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 30F)
@@ -215,10 +216,10 @@ class ClientActivity : AppCompatActivity() {
             accountDetailsTextView.setPadding(25, 25, 25, 25)
 
             // Get VPN Plan Details from API
-            var plan = WGMApi.getPlan(sharedPreferences)
-            Log.i(mTAG, "PLAN RESULTS: " + plan.toString())
+            val plan = WGMApi.getPlan(sharedPreferences)
+            //Log.i(mTAG, "PLAN RESULTS: " + plan.toString())
             // Fill Values
-            var planDetailString = "<h3>"+plan.getJSONObject("result").getJSONObject("product").getString(
+            val planDetailString = "<h3>"+plan.getJSONObject("result").getJSONObject("product").getString(
                 "name"
             )+"</h3>\n"+
                     "<p><b>Expires: </b>"+plan.getJSONObject("result").getJSONObject("plan").getString(
@@ -246,10 +247,7 @@ class ClientActivity : AppCompatActivity() {
             // CardView
             val cardView = CardView(context)
             val linearLayout = LinearLayout(context)
-            val layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            )
+
             // Linear Layout
             linearLayout.gravity = Gravity.CENTER_HORIZONTAL
             linearLayout.layoutParams = LinearLayout.LayoutParams(
@@ -272,7 +270,7 @@ class ClientActivity : AppCompatActivity() {
             cardView.foregroundGravity = Gravity.CENTER_HORIZONTAL
 
             // Account Button
-            var accountButton = Button(context)
+            val accountButton = Button(context)
             accountButton.layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
@@ -298,10 +296,7 @@ class ClientActivity : AppCompatActivity() {
             // CardView
             val cardView = CardView(context)
             val linearLayout = LinearLayout(context)
-            val layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            )
+
             // Linear Layout
             linearLayout.gravity = Gravity.CENTER_HORIZONTAL
             linearLayout.layoutParams = LinearLayout.LayoutParams(
@@ -347,7 +342,56 @@ class ClientActivity : AppCompatActivity() {
             // Add Card to parent
             relativeLayout.addView(cardView)
         }
+        else if(type == "test_button"){
+            // CardView
+            val cardView = CardView(context)
+            val linearLayout = LinearLayout(context)
 
+            // Linear Layout
+            linearLayout.gravity = Gravity.CENTER_HORIZONTAL
+            linearLayout.layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
+            )
+            linearLayout.orientation = LinearLayout.VERTICAL
+
+            // Cardview Settings
+            cardView.layoutParams = LinearLayout.LayoutParams(
+                1024,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+            cardView.radius = 30F
+            cardView.useCompatPadding = true
+            cardView.setPadding(25, 100, 25, 100)
+            cardView.setCardBackgroundColor(Color.WHITE)
+            cardView.maxCardElevation = 30F
+            cardView.maxCardElevation = 6F
+            cardView.foregroundGravity = Gravity.CENTER_HORIZONTAL
+
+            // Logout Button
+            var logOutButton = Button(context)
+            logOutButton.layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+            logOutButton.text = "Test"
+            logOutButton.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20F)
+            logOutButton.setTextColor(Color.WHITE)
+            logOutButton.setPadding(0, 25, 0, 25)
+            logOutButton.background = getDrawable(my_button)
+            logOutButton.setOnClickListener(View.OnClickListener {
+                onTest()
+            })
+
+            // Add All to Layout
+            linearLayout.addView(logOutButton)
+
+
+            // Add layout to CardView
+            cardView.addView(linearLayout)
+            // Add Card to parent
+            relativeLayout.addView(cardView)
+        }
 
 
     }
@@ -427,6 +471,9 @@ class ClientActivity : AppCompatActivity() {
             "account_button",
             sharedPreferences
         )
+        // Draw Test Button
+        createCard(applicationContext,findViewById(R.id.cardsLinearLayout),"test_button",sharedPreferences)
+
         // Draw Log Out Button
         createCard(
             applicationContext,
@@ -435,6 +482,11 @@ class ClientActivity : AppCompatActivity() {
             sharedPreferences
         )
 
+    }
+
+    private fun onTest(){
+        val newIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www0.skylaski.com/checkip"))
+        startActivity(newIntent)
     }
 
     private fun getLocations(sharedPreferences: SharedPreferences, spinner: Spinner){
@@ -535,7 +587,7 @@ class ClientActivity : AppCompatActivity() {
         return true
 
     }
-    fun onConnectSwitch(connectionSwitch: Switch){
+    private fun onConnectSwitch(connectionSwitch: Switch){
 
         if(connectionSwitch.isChecked){
             // Connect to the VPN
@@ -559,7 +611,7 @@ class ClientActivity : AppCompatActivity() {
 
     }
 
-    fun onDNSSwitch(dnsSwitch: Switch) {
+    private fun onDNSSwitch(dnsSwitch: Switch) {
 
         if(dnsSwitch.isChecked){
             mSharedPreferences.edit().putString("device_dns", DEFAULT_DNS_BLOCKING).apply()
@@ -567,6 +619,7 @@ class ClientActivity : AppCompatActivity() {
 
             // Now get the latest DNS server information
             val dnsResponse = WGMApi.getDNS(mSharedPreferences, DEFAULT_DNS_BLOCKING)
+            //Log.i(mTAG,"DNSRESPONSE "+dnsResponse.toString())
 
             // Let's update the config
             val wgTextConfig = mSharedPreferences.getString("wireguard_client_config", "")
@@ -586,6 +639,7 @@ class ClientActivity : AppCompatActivity() {
 
             // Now get the latest DNS server information
             val dnsResponse = WGMApi.getDNS(mSharedPreferences, DEFAULT_DNS_NO_BLOCKING)
+            //Log.i(mTAG,"DNSRESPONSE "+dnsResponse.toString())
 
             // Let's update the config
             val wgTextConfig = mSharedPreferences.getString("wireguard_client_config", "")
@@ -601,7 +655,7 @@ class ClientActivity : AppCompatActivity() {
         }
     }
 
-    fun onLogout(){
+    private fun onLogout(){
 
         val alertDialogBuilder = AlertDialog.Builder(this)
         alertDialogBuilder.setTitle(getString(R.string.log_out))
@@ -634,7 +688,7 @@ class ClientActivity : AppCompatActivity() {
 
     }
 
-    fun account(){
+    private fun account(){
         // load the default browser to take the user to their account page
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(ACCOUNT_URI))
         startActivity(intent)
