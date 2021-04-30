@@ -4,8 +4,8 @@ import android.content.SharedPreferences
 import com.skylaski.android.wgm.wireguard.WGKeys
 import org.json.JSONObject
 
-public const val USER_API_ENDPOINT = "https://wgm0.skylaski.com/api/0.1/user/index.php"
-public const val CLIENT_API_ENDPOINT = "https://wgm0.skylaski.com/api/0.1/client/index.php"
+public const val USER_API_ENDPOINT = "https://wgm.skylaski.com/api/0.1/user/index.php"
+public const val CLIENT_API_ENDPOINT = "https://wgm.skylaski.com/api/0.1/client/index.php"
 public const val DEFAULT_DNS_BLOCKING = "3"
 public const val DEFAULT_DNS_NO_BLOCKING = "2"
 
@@ -33,11 +33,13 @@ public object WGMApi {
             }
         })
         requestThread.start()
-        while (requestThread.isAlive) { // Make sure the API Calls finish before we move on
+        requestThread.join()
+
+        /*while (requestThread.isAlive) { // Make sure the API Calls finish before we move on
             run {
 
             }
-        }
+        }*/
 
         return checkoutApiResponse.getBoolean("success")
     }
@@ -64,11 +66,13 @@ public object WGMApi {
             }
         })
         requestThread.start()
-        while (requestThread.isAlive) { // Make sure the API Calls finish before we move on
+        requestThread.join()
+
+        /*while (requestThread.isAlive) { // Make sure the API Calls finish before we move on
             run {
 
             }
-        }
+        }*/
 
         dnsResponse = if(dnsApiResponse.getBoolean("success")) {
             val result = dnsApiResponse.getJSONObject("result")
@@ -98,11 +102,13 @@ public object WGMApi {
             }
         })
         requestThread.start()
-        while (requestThread.isAlive) { // Make sure the API Calls finish before we move on
+        requestThread.join()
+
+        /*while (requestThread.isAlive) { // Make sure the API Calls finish before we move on
             run {
 
             }
-        }
+        }*/
 
         return clientsResponse
     }
@@ -124,11 +130,13 @@ public object WGMApi {
             }
         })
         requestThread.start()
-        while(requestThread.isAlive){
+        requestThread.join()
+
+        /*while(requestThread.isAlive){
             run {
 
             }
-        }
+        }*/
 
         return upgradeResponse
     }
@@ -150,11 +158,13 @@ public object WGMApi {
             }
         })
         requestThread.start()
-        while(requestThread.isAlive){
+        requestThread.join()
+
+        /*while(requestThread.isAlive){
             run{
 
             }
-        }
+        }*/
 
         return planResponse
     }
@@ -175,11 +185,13 @@ public object WGMApi {
             }
         })
         requestThread.start()
-        while(requestThread.isAlive){
+        requestThread.join()
+
+        /*while(requestThread.isAlive){
             run {
 
             }
-        }
+        }*/
 
         return userResponse
     }
@@ -208,11 +220,13 @@ public object WGMApi {
             }
         })
         mRequestThread.start()
-        while (mRequestThread.isAlive) {
+        mRequestThread.join()
+
+        /*while (mRequestThread.isAlive) {
             run {
 
             }
-        }
+        }*/
 
         if (!clientResponse.getBoolean("success")) {
 
@@ -313,11 +327,13 @@ public object WGMApi {
             }
         })
         mRequestThread.start()
-        while(mRequestThread.isAlive){
+        mRequestThread.join()
+
+        /*while(mRequestThread.isAlive){
             run{
 
             }
-        }
+        }*/
 
         return mClientResponse.getJSONObject("result")
     }
@@ -344,11 +360,13 @@ public object WGMApi {
             }
         })
         mRequestThread.start()
-        while (mRequestThread.isAlive) {
+        mRequestThread.join()
+
+        /*while (mRequestThread.isAlive) {
             run {
 
             }
-        }
+        }*/
 
         return success
     }
@@ -375,11 +393,12 @@ public object WGMApi {
             }
         })
         mRequestThread.start()
-        while(mRequestThread.isAlive){
+        mRequestThread.join()
+        /*while(mRequestThread.isAlive){
             run{
 
             }
-        }
+        }*/
         checkClientConfig(sharedPreferences)
 
         return success
@@ -404,11 +423,13 @@ public object WGMApi {
             }
         })
         mRequestThread.start()
-        while(mRequestThread.isAlive){
+        mRequestThread.join()
+
+        /*while(mRequestThread.isAlive){
             run {
 
             }
-        }
+        }*/
         return success
     }
 
@@ -432,11 +453,13 @@ public object WGMApi {
             }
         })
         mRequestThread.start()
-        while(mRequestThread.isAlive){
+        mRequestThread.join()
+
+        /*while(mRequestThread.isAlive){
             run {
 
             }
-        }
+        }*/
 
         return success
     }

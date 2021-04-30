@@ -175,7 +175,6 @@ class checkoutActivity : AppCompatActivity() {
             PurchasesUpdatedListener { billingResult, purchases ->
                 // To be implemented in a later section.
 
-
                 if(billingResult.responseCode == BillingClient.BillingResponseCode.OK){
                     //Log.i(mTag,"Found a Purchase: "+billingResult.responseCode.toString())
                     //Log.i(mTag,"Purchase Token: "+purchases!![0].purchaseToken.toString())

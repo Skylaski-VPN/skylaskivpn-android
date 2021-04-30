@@ -10,6 +10,7 @@
     <string name="title_activity_client">ClientActivity</string>
 
     <string name="choose_location">Choose A Location</string>
+    <string name="changing_location">Changing Location</string>
     <string name="blocking_trackers">Blocking Trackers</string>
     <string name="block_trackers">Block Trackers</string>
     <string name="connect">Connect</string>
@@ -45,6 +46,6 @@
     -->
     <string name="hello_world">Hello Round World!</string>
 
-    <string name="chooseAPlan">Choose a VPN Plan.</string>
+    <string name="chooseAPlan">Choose a VPN Plan</string>
 
 </resources>

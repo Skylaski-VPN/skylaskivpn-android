@@ -17,8 +17,8 @@ public object ApiRequestHandler {
     fun requestPOST(r_url: String?, postDataParams: JSONObject, token: String): String? {
         val url = URL(r_url)
         val conn: HttpURLConnection = url.openConnection() as HttpURLConnection
-        conn.readTimeout = 6000
-        conn.connectTimeout = 6000
+        conn.readTimeout = 10000
+        conn.connectTimeout = 10000
         conn.requestMethod = POST
         conn.doInput = true
         conn.doOutput = true

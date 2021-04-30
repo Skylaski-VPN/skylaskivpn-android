@@ -11,13 +11,18 @@ import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
+import android.view.ViewGroup
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.text.HtmlCompat
 import androidx.core.text.HtmlCompat.FROM_HTML_SEPARATOR_LINE_BREAK_PARAGRAPH
+import androidx.core.view.isVisible
+import androidx.core.view.marginLeft
+import androidx.lifecycle.ViewModel
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.skylaski.R
@@ -28,8 +33,11 @@ import com.skylaski.android.wgm.WGMApi
 import com.skylaski.android.wgm.wireguard.MyTunnel
 import com.skylaski.android.wgm.wireguard.TunnelManager
 import com.wireguard.android.backend.GoBackend
+import kotlinx.coroutines.*
 import org.json.JSONArray
 import org.json.JSONObject
+import java.lang.Runnable
+import kotlin.coroutines.CoroutineContext
 
 private const val TUNNEL_NAME = "wg0"
 
@@ -38,6 +46,7 @@ class ClientActivity : AppCompatActivity() {
     private lateinit var wgBackend: GoBackend
     private lateinit var tunnelManager: TunnelManager
     private lateinit var mSharedPreferences: SharedPreferences
+    private lateinit var pBar: ProgressBar
     private var tunnel = MyTunnel(TUNNEL_NAME)
 
     private fun createCard(
@@ -482,6 +491,32 @@ class ClientActivity : AppCompatActivity() {
             sharedPreferences
         )
 
+        // Setup Progress Bar
+        /*
+        <ProgressBar
+       android:id="@+id/p_Bar"
+       style="?android:attr/progressBarStyleHorizontal"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_marginLeft="100dp"
+       android:layout_marginTop="200dp"
+       android:indeterminate="false"
+       android:max="100"
+       android:minWidth="200dp"
+       android:minHeight="50dp"
+       android:progress="0" />
+         */
+
+        pBar = ProgressBar(applicationContext,null,android.R.attr.progressBarStyleLarge)
+        pBar.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.MATCH_PARENT
+        )
+        val mLayout = findViewById<LinearLayout>(R.id.cardsLinearLayout)
+        mLayout.addView(pBar)
+        mLayout.removeView(pBar)
+        pBar.visibility = View.GONE
+
     }
 
     private fun onTest(){
@@ -541,10 +576,20 @@ class ClientActivity : AppCompatActivity() {
                         // Is the user changing their location?
                         if (currentLocation != locationUID) {
                             // First detach client from current location
-                            detachLocation(sharedPreferences)
-                            // Now attach client to new location
-                            attachLocation(locationUID, sharedPreferences)
-                            sharedPreferences.edit().putString("loc_uid", locationUID).apply()
+                            Toast.makeText(applicationContext, getString(R.string.changing_location), Toast.LENGTH_LONG).show()
+                            val newThread = Thread(Runnable {
+                                detachLocation(sharedPreferences)
+                                // Now attach client to new location
+                                attachLocation(locationUID, sharedPreferences)
+
+                                sharedPreferences.edit().putString("loc_uid", locationUID).apply()
+                            })
+                            newThread.start()
+
+
+
+
+
                         }
                     }
                 }
@@ -556,8 +601,14 @@ class ClientActivity : AppCompatActivity() {
     }
 
     fun detachLocation(sharedPreferences: SharedPreferences) : Boolean{
-        Toast.makeText(applicationContext, "Disconnecting", Toast.LENGTH_SHORT).show()
-        WGMApi.detachClient(sharedPreferences)
+        //Toast.makeText(applicationContext, "Disconnecting", Toast.LENGTH_SHORT).show()
+
+                WGMApi.detachClient(sharedPreferences)
+
+
+            //sampleRoutine.await()
+
+
 
         // update sharedPreferences
         sharedPreferences.edit().putBoolean("isAttached", false).apply()
@@ -571,17 +622,25 @@ class ClientActivity : AppCompatActivity() {
     fun attachLocation(locationUID: String, sharedPreferences: SharedPreferences) : Boolean{
         // attempt to attach the client to a GW server at the identified location
 
-        Toast.makeText(applicationContext, getString(R.string.finding_server), Toast.LENGTH_SHORT).show()
-        WGMApi.attachClient(sharedPreferences, locationUID)
+        //Toast.makeText(applicationContext, getString(R.string.finding_server), Toast.LENGTH_SHORT).show()
+
+                WGMApi.attachClient(sharedPreferences, locationUID)
+
+
+            //sampleRoutine.await()
+
+
+
 
         // We just attached a new location, clear config and recheck client config
         sharedPreferences.edit().putBoolean("isAttached", true).apply()
         // connect by default
 
         sharedPreferences.edit().putString("wireguard_client_config", null).apply()
-        WGMApi.checkClientConfig(sharedPreferences)
 
-        tunnelManager.connect(sharedPreferences)
+                WGMApi.checkClientConfig(sharedPreferences)
+
+                tunnelManager.connect(sharedPreferences)
         sharedPreferences.edit().putBoolean("is_connected", true).apply()
 
         return true
