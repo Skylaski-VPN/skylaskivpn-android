@@ -5,8 +5,9 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.skylaski.R
+import com.skylaski.android.WEB_DOMAIN
 
-private const val GOOGLE_LOGIN_URL = "https://www0.skylaski.com/sign-in/google-mobile.php"
+private const val GOOGLE_LOGIN_URL = "https://$WEB_DOMAIN/sign-in/google-mobile.php"
 
 class GoogleLoginActivity : AppCompatActivity() {
     private val mTag = "GoogleLoginActivity"

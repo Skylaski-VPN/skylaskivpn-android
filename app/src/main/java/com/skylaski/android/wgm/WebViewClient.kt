@@ -5,10 +5,12 @@ import android.content.Intent
 import android.net.Uri
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import com.skylaski.android.WEB_DOMAIN
+import com.skylaski.android.WEB_DOMAIN_REGEX
 
-const val DEEP_LINK_PREFIX = "skylaski://www0.skylaski.com/skylaskivpnapp"
-const val GOOGLE_LOGIN_DEEP_LINK_PREFIX = "skylaski://www0.skylaski.com/google-login"
-const val NOACCOUNT_DEEP_LINK_PREFIX = "skylaski://www0.skylaski.com/NoAccount"
+const val DEEP_LINK_PREFIX = "skylaski://$WEB_DOMAIN/skylaskivpnapp"
+const val GOOGLE_LOGIN_DEEP_LINK_PREFIX = "skylaski://$WEB_DOMAIN/google-login"
+const val NOACCOUNT_DEEP_LINK_PREFIX = "skylaski://$WEB_DOMAIN/NoAccount"
 
 class WebViewClient(context: Context) : WebViewClient() {
     private var myContext = context
@@ -19,7 +21,7 @@ class WebViewClient(context: Context) : WebViewClient() {
         // Check for the website detecting the app and redirecting us back in.
         if (url.toString().startsWith(DEEP_LINK_PREFIX)) {
             // get token from string
-            val pattern = Regex("^skylaski:\\/\\/www0\\.skylaski\\.com\\/skylaskivpnapp\\?token=(.*)$")
+            val pattern = Regex("^skylaski:\\/\\/$WEB_DOMAIN_REGEX\\/skylaskivpnapp\\?token=(.*)$")
             val matchResult = pattern.find(url.toString())
             val userToken = matchResult!!.groupValues[1]
 

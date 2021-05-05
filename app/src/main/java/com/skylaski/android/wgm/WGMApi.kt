@@ -1,11 +1,12 @@
 package com.skylaski.android.wgm
 
 import android.content.SharedPreferences
+import com.skylaski.android.API_DOMAIN
 import com.skylaski.android.wgm.wireguard.WGKeys
 import org.json.JSONObject
 
-public const val USER_API_ENDPOINT = "https://wgm.skylaski.com/api/0.1/user/index.php"
-public const val CLIENT_API_ENDPOINT = "https://wgm.skylaski.com/api/0.1/client/index.php"
+public const val USER_API_ENDPOINT = "https://$API_DOMAIN/api/0.1/user/index.php"
+public const val CLIENT_API_ENDPOINT = "https://$API_DOMAIN/api/0.1/client/index.php"
 public const val DEFAULT_DNS_BLOCKING = "3"
 public const val DEFAULT_DNS_NO_BLOCKING = "2"
 

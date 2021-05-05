@@ -449,7 +449,7 @@ class ClientActivity : AppCompatActivity() {
             token = deepLinkIntent.getStringExtra("TOKEN").toString()
         }
         else {
-            val pattern = kotlin.text.Regex("^skylaski:\\/\\/www0\\.skylaski\\.com\\/skylaskivpnapp\\?token=(.*)$")
+            val pattern = kotlin.text.Regex("^skylaski:\\/\\/$WEB_DOMAIN_REGEX\\/skylaskivpnapp\\?token=(.*)$")
             val matchResult = pattern.find(deepLinkIntent.dataString.toString())
             token = matchResult!!.groupValues[1]
         }
@@ -520,7 +520,7 @@ class ClientActivity : AppCompatActivity() {
     }
 
     private fun onTest(){
-        val newIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www0.skylaski.com/checkip"))
+        val newIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://$WEB_DOMAIN/checkip"))
         startActivity(newIntent)
     }
 

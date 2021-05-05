@@ -12,11 +12,14 @@ import androidx.security.crypto.MasterKey.DEFAULT_MASTER_KEY_ALIAS
 import com.skylaski.android.wgm.HashUtils
 import com.skylaski.android.wgm.WebViewClient
 
-const val CLIENT_DEEP_LINK_PREFIX = "skylaski://www0.skylaski.com/skylaskivpnapp"
+const val WEB_DOMAIN="www.skylaski.com"
+const val WEB_DOMAIN_REGEX="www\\.skylaski\\.com"
+const val API_DOMAIN="wgm.skylaski.com"
+const val CLIENT_DEEP_LINK_PREFIX = "skylaski://$WEB_DOMAIN/skylaskivpnapp"
 public const val USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36 SkylaskiVPN0.1"
-public const val SKYLASKI_LOGIN_URL = "https://www0.skylaski.com/sign-in/index.php"
+public const val SKYLASKI_LOGIN_URL = "https://$WEB_DOMAIN/sign-in/index.php"
 public const val DEFAULT_KILLSWITCH = "on"
-public const val ACCOUNT_URI = "https://www0.skylaski.com/sign-in/"
+public const val ACCOUNT_URI = "https://$WEB_DOMAIN/sign-in/"
 
 class MainActivity : AppCompatActivity() {
 

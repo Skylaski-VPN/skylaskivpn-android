@@ -28,7 +28,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="www0.skylaski.com"
+                    android:host="@string/web_domain"
                     android:pathPrefix="/NoAccount"
                     android:scheme="skylaski" />
             </intent-filter>
@@ -45,7 +45,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="www0.skylaski.com"
+                    android:host="@string/web_domain"
                     android:pathPrefix="/google-login"
                     android:scheme="skylaski" />
             </intent-filter>
@@ -60,7 +60,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="www0.skylaski.com"
+                    android:host="@string/web_domain"
                     android:pathPrefix="/skylaskivpnapp"
                     android:scheme="skylaski" />
             </intent-filter>

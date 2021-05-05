@@ -165,7 +165,7 @@ class checkoutActivity : AppCompatActivity() {
 
         // This activity is only ever called with a proper Intent
         val deepLinkIntent: Intent = intent
-        val pattern = kotlin.text.Regex("^skylaski:\\/\\/www0\\.skylaski\\.com\\/NoAccount\\?token=(.*)$")
+        val pattern = kotlin.text.Regex("^skylaski:\\/\\/$WEB_DOMAIN_REGEX\\/NoAccount\\?token=(.*)$")
         val matchResult = pattern.find(deepLinkIntent.dataString.toString())
         token = matchResult!!.groupValues[1]
 
